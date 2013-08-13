@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleObject.cs">
+    <Files>
+      <File FileName="Assets/Scripts/SimpleObject.cs" Line="14" Column="129" />
+      <File FileName="Assets/Scripts/CameraPath/CameraPathBezier.cs" Line="192" Column="21" />
+      <File FileName="Assets/Scripts/CameraPath/CameraPathBezierAnimator.cs" Line="33" Column="37" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
