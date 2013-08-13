@@ -24,10 +24,11 @@ public class CubeBehaviour : MonoBehaviour {
 		{
 			renderer.material.color = new Color(255,0,0);
 			StartCoroutine(resetColor());			
-			Destroy(other.gameObject);
+			//Destroy(other.gameObject);
 			Main main = GameObject.Find("Main").GetComponent("Main") as Main;
 			main.addPoint(10);
 			SimpleObject so = other.gameObject.GetComponent("SimpleObject") as SimpleObject;
+			so.DestroyMe();
 			ObjectInfo newInfo = new ObjectInfo(so.name, so.type);
 			Main.takenObjects.Add(newInfo);
 		}

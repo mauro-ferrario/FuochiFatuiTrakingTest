@@ -9,12 +9,11 @@ public class SimpleObject : MonoBehaviour {
 	private GameObject	myPath;
 	private CameraPathBezierAnimator cameraPathBezierAnimator;
 	
-	// Use this for initialization
-	void Start () {
+	void Awake()
+	{		
 		myPath = Instantiate(ObjectCameraPath, ObjectCameraPath.transform.position, ObjectCameraPath.transform.rotation) as GameObject;
 		cameraPathBezierAnimator = myPath.GetComponent("CameraPathBezierAnimator") as CameraPathBezierAnimator;
 		cameraPathBezierAnimator.animationTarget = this.transform;
-		
 		cameraPathBezierAnimator.AnimationStarted += OnAnimationStarted;
         cameraPathBezierAnimator.AnimationPaused += OnAnimationPaused;
         cameraPathBezierAnimator.AnimationStopped += OnAnimationStopped;
@@ -24,6 +23,18 @@ public class SimpleObject : MonoBehaviour {
 
         cameraPathBezierAnimator.AnimationPointReached += OnPointReached;
         cameraPathBezierAnimator.AnimationPointReachedWithNumber += OnPointReachedByNumber;
+		
+	}
+	
+	public void DestroyMe()
+	{
+		Destroy(myPath);
+		Destroy(gameObject);
+	}
+	
+	// Use this for initialization
+	void Start () {
+		cameraPathBezierAnimator.Play();		
 	}
 	
 	// Update is called once per frame
@@ -49,8 +60,7 @@ public class SimpleObject : MonoBehaviour {
     private void OnAnimationFinished()
     {
         Debug.Log("The animation has finished");
-		Destroy(myPath);
-		Destroy(gameObject);
+		DestroyMe();
     }
 
     private void OnAnimationLooped()
