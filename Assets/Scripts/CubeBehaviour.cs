@@ -5,7 +5,8 @@ public class CubeBehaviour : MonoBehaviour {
 	
 	public static Vector3 	cubeTarget;
 	public float			speed;
-	private float			easing 		= 0.1f;
+	private float			easing 			= 0.1f;
+	public bool				enableTracking 	= false;
 	
 	void Start () {
 	
@@ -15,8 +16,11 @@ public class CubeBehaviour : MonoBehaviour {
 		Vector3 actualPos = transform.position;	
 		actualPos.x = cubeTarget.x;
 		actualPos.y = cubeTarget.y;
-		actualPos.z += (cubeTarget.z - actualPos.z) * easing;			
-		//transform.position = actualPos;		
+		actualPos.z += (cubeTarget.z - actualPos.z) * easing;	
+		if(enableTracking)
+		{
+			transform.position = actualPos;	
+		}	
 	}
 	
 	void OnCollisionEnter (Collision other) {
