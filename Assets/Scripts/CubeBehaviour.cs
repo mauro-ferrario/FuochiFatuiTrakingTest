@@ -13,6 +13,10 @@ public class CubeBehaviour : MonoBehaviour {
 	}
 	
 	void Update () {
+		Main main = GameObject.Find("Main").GetComponent("Main") as Main;
+		if(!main.isPlay)
+			return;
+		
 		Vector3 actualPos = transform.position;	
 		actualPos.x = cubeTarget.x;
 		actualPos.y = cubeTarget.y;
@@ -30,8 +34,8 @@ public class CubeBehaviour : MonoBehaviour {
 			StartCoroutine(resetColor());			
 			//Destroy(other.gameObject);
 			Main main = GameObject.Find("Main").GetComponent("Main") as Main;
-			main.addPoint(10);
 			SimpleObject so = other.gameObject.GetComponent("SimpleObject") as SimpleObject;
+			main.addPoint(so.pointValue);
 			so.DestroyMe();
 			ObjectInfo newInfo = new ObjectInfo(so.name, so.type);
 			Main.takenObjects.Add(newInfo);

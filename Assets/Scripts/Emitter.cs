@@ -15,10 +15,13 @@ public class Emitter : MonoBehaviour {
 	}
 	
 	void Update () {
+		Main main = GameObject.Find("Main").GetComponent("Main") as Main;
+		if(!main.isPlay)
+			return;
+		
 		float posZ = Random.Range(-5, 15);
 		float posX = Mathf.Cos(angle) * 5.0f;
 		
-		Main main = GameObject.Find("Main").GetComponent("Main") as Main;
 		
 		//if(!main.freeDepth)
 		//	posZ = Main.getRangeDepth(posZ);
@@ -26,7 +29,6 @@ public class Emitter : MonoBehaviour {
 		//transform.position = new Vector3(posX, 10, posZ);
 		if(Input.GetButton("Fire1")&&Time.time>nextFire)
 		{
-			Debug.Log("FIRE!");
 		//	if(countObject%solidDensity == 0)
 		//	{
 				for(int a = 0; a < 1; a++)
@@ -37,6 +39,7 @@ public class Emitter : MonoBehaviour {
 						pos = 0;
 					else 
 						pos = 1;
+				
 					GameObject go = Instantiate(objects[pos], this.transform.position, this.transform.rotation) as GameObject;
 					SimpleObject simpleObject = go.GetComponent("SimpleObject") as SimpleObject;
 					

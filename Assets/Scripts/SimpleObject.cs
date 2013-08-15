@@ -7,6 +7,7 @@ public class SimpleObject : MonoBehaviour {
 	public int 			type;
 	public GameObject	ObjectCameraPath;
 	private GameObject	myPath;
+	public int			pointValue = 10;
 	private CameraPathBezierAnimator cameraPathBezierAnimator;
 	
 	void Awake()
@@ -23,7 +24,6 @@ public class SimpleObject : MonoBehaviour {
 
         cameraPathBezierAnimator.AnimationPointReached += OnPointReached;
         cameraPathBezierAnimator.AnimationPointReachedWithNumber += OnPointReachedByNumber;
-		
 	}
 	
 	public void DestroyMe()
@@ -44,42 +44,42 @@ public class SimpleObject : MonoBehaviour {
 	
 	private void OnAnimationStarted()
     {
-        Debug.Log("The animation has begun");
+        //Debug.Log("The animation has begun");
     }
 
     private void OnAnimationPaused()
     {
-        Debug.Log("The animation has been paused");
+        //Debug.Log("The animation has been paused");
     }
 
     private void OnAnimationStopped()
     {
-        Debug.Log("The animation has been stopped");
+        //Debug.Log("The animation has been stopped");
     }
 
     private void OnAnimationFinished()
     {
-        Debug.Log("The animation has finished");
+        //Debug.Log("The animation has finished");
 		DestroyMe();
     }
 
     private void OnAnimationLooped()
     {
-        Debug.Log("The animation has looped back to the start");
+        //Debug.Log("The animation has looped back to the start");
     }
 
     private void OnAnimationPingPonged()
     {
-        Debug.Log("The animation has ping ponged into the other direction");
+        //Debug.Log("The animation has ping ponged into the other direction");
     }
 
     private void OnPointReached()
     {
-        Debug.Log("A point was reached");
+        //Debug.Log("A point was reached");
     }
 
     private void OnPointReachedByNumber(int pointNumber)
     {
-        Debug.Log("The point " + pointNumber + " was reached");
+        //Debug.Log("The point " + pointNumber + " was reached");
     }
 }

@@ -11,6 +11,5 @@ public class ObjectInfo {
 	{
 		this.name = name;
 		this.type = type;
-		Debug.Log ("INFO " + name);
 	}
 }
