@@ -1,59 +1,48 @@
+/*
+ * Questa classe si occupa della creazione degli oggetti che il giocatore dovrà prendere.
+ * L'oggetto verrà creato solamente quando il bottone di "Fire1" verrà premuto.
+ * E' possibile passare uno o più "GameObject" alla variabile "objects", tramite il pannello dei componenti. Al momento 
+ * vengono passati solo due "GameObject".
+ */
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Emitter : MonoBehaviour {
-	private float 		angle  			= 0;
-	public float 		speed			= 10.0f;
-	public int			solidDensity	= 37;
-	public List<GameObject>	objects;
-	private int			countObject 	= 0;
-	private float		fireRate		= .5f;
-	private float		nextFire		= .0f;
+	public List<GameObject>	objects; 
+	private float			fireRate		= .5f;
+	private float			nextFire		= .0f;
 	
 	void Start () {
 	}
+	
+	/* La prima cosa che viene effettuata all'interno di questo metodo è il controllo per capire se è in corso una paritata o no.
+	 * Nel caso non ci sia nessuna partita in corso, non viene eseguito nulla.
+	 * Nel caso venga premuto il bottone di "Fire1" e nel caso sia passato abbastanza tempo dalla creazione dell'ultimo oggetto, allora
+	 * viene creato un altro oggetto. Il nuovo oggetto creato sarà un oggetto a caso fra quelli presenti nella lista "objects". Dato che 
+	 * al momento ci sono solo 2 oggetti, l'if/else viene utilizzato per scegliere quale dei 2 oggetti creare.
+	 */
 	
 	void Update () {
 		Main main = GameObject.Find("Main").GetComponent("Main") as Main;
 		if(!main.isPlay)
 			return;
 		
-		float posZ = Random.Range(-5, 15);
-		float posX = Mathf.Cos(angle) * 5.0f;
-		
-		
-		//if(!main.freeDepth)
-		//	posZ = Main.getRangeDepth(posZ);
-		
-		//transform.position = new Vector3(posX, 10, posZ);
 		if(Input.GetButton("Fire1")&&Time.time>nextFire)
 		{
-		//	if(countObject%solidDensity == 0)
-		//	{
-				for(int a = 0; a < 1; a++)
-				{
-					int pos; // = (int)Utility.ofMap(Random.Range(0,1), 0, 1, 0, objects.Count - 1, true);
-					
-					if(Random.Range(0.0f,1.0f) < .5f)
-						pos = 0;
-					else 
-						pos = 1;
+			int pos;
+			if(Random.Range(0.0f,1.0f) < .5f)
+				pos = 0;
+			else 
+				pos = 1;
 				
-					GameObject go = Instantiate(objects[pos], this.transform.position, this.transform.rotation) as GameObject;
-					SimpleObject simpleObject = go.GetComponent("SimpleObject") as SimpleObject;
-					
-					simpleObject.name += Random.Range(0, 1000);
-				
-					nextFire = Time.time + fireRate;
-				}
-		//	}
+			GameObject go = Instantiate(objects[pos], this.transform.position, this.transform.rotation) as GameObject;
+			SimpleObject simpleObject = go.GetComponent("SimpleObject") as SimpleObject;
+			simpleObject.name += Random.Range(0, 1000);
+			// http://docs.unity3d.com/Documentation/ScriptReference/Time-time.html
+			nextFire = Time.time + fireRate;
+			
 		}
-		
-		
-		angle += speed;
-		countObject++;
-		if(countObject > 10000000)
-			countObject = 0;
 	}	
 }

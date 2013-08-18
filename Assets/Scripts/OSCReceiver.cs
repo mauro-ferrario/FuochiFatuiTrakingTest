@@ -1,3 +1,7 @@
+/* 
+ * Classe per la ricezione dell'OSC
+ */
+
 using UnityEngine;
 using System.Collections;
 

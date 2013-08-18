@@ -1,14 +1,39 @@
+/*
+ * Questa è la classe base per gli oggetti che dovranno essere presi dal carrello.
+ * Ogni oggetto avrà determinate caratteristiche.
+ * "name" identifica il nome di questo oggetto. Il nome può essere un nome qualsiasi e è fatto per differenziare i vari oggetti fra loro
+ * "type" identifica il tipo di oggetto. Se ad esempio dovessero esserci demoni, folletti, angeli, questi dovrebbero avere ognuno un tipo diverso
+ * e il tipo è identificato con un intero. 
+ * "pointValue" è il valore di punti che il giocatore guadagna se prende questo oggetto.
+ * "ObjectCameraPath" è il riferimento a un Prefab di tipo "GameObject" che contiene i Component di "CameraPathBezierAnimator" e "CameraPathBezier".
+ * Questo riferimento viene associato da pannello di controllo dei componenti agli oggetti in "Prefab" che dovranno apparire e essere presi dal
+ * giocatore. In questo modo da pannello di controllo è possibile associare a ogni oggetto di tipo diverso, diversi tracciati da seguire.
+ * Volendo in futuro si potrebbe anche impostare una lista di "ObjectCameraPath", per fare in modo che oggetti dello stesso tipo possano seguire
+ * tracciati diversi. 
+ * "myPath" è un'istanza di "ObjectCameraPath". E' necessario creare un'istanza per ogni "SimpleObject" perchè ogni "GameObject" con associato lo
+ * Script di "CameraPathBezierAnimator" può gestire il percorso per un solo oggetto alla volta. In questo modo, creando un'istanza dei tracciati
+ * creati in precedenza, ogni "SimbleObject" potrà avere la proprio copia del tracciato che verrà poi distrutta quando anche l'oggetto verrà rimosso
+ * dallo stage.
+ * "cameraPathBezierAnimator" è il riferimanto a "CameraPathBezierAnimator" grazie al quale possiamo controllare l'animazione del noostro oggetto e 
+ * settare quale sarà la matrice di trasformazione da prendere come riferimento da associare all'animazione. Per far questo basta associare la matrice
+ * dell'oggetto alla variabile "animationTarget" contenuta all'interno dello di "CameraPathBezierAnimator".
+ * Oltre a questo, grazie al riferimento a "CameraPathBezierAnimator", siamo anche in grado di intercettare tutti gli eventi che vengono generati durante
+ * l'animaizone dell'oggetto.
+ */
+
 using UnityEngine;
 using System.Collections;
 
 public class SimpleObject : MonoBehaviour {
 	
-	public string 		name;
-	public int 			type;
-	public GameObject	ObjectCameraPath;
-	private GameObject	myPath;
-	public int			pointValue = 10;
-	private CameraPathBezierAnimator cameraPathBezierAnimator;
+	public string 						name;
+	public int 							type;
+	public int							pointValue = 10;
+	public GameObject					ObjectCameraPath;
+	private GameObject					myPath;
+	private CameraPathBezierAnimator 	cameraPathBezierAnimator;
+	
+	// Prima di tutto vengono associati i listener per gli eventi di "CameraPathBezierAnimator" e viene settato il valore a "animationTarget"
 	
 	void Awake()
 	{		
@@ -26,60 +51,53 @@ public class SimpleObject : MonoBehaviour {
         cameraPathBezierAnimator.AnimationPointReachedWithNumber += OnPointReachedByNumber;
 	}
 	
+	// Questo metodo distrugge prima il tracciato riferito all'oggetto e in seguito distrugge l'oggetto stesso
+	
 	public void DestroyMe()
 	{
 		Destroy(myPath);
 		Destroy(gameObject);
 	}
 	
-	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		cameraPathBezierAnimator.Play();		
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 	}
 	
 	private void OnAnimationStarted()
     {
-        //Debug.Log("The animation has begun");
     }
 
     private void OnAnimationPaused()
     {
-        //Debug.Log("The animation has been paused");
     }
 
     private void OnAnimationStopped()
     {
-        //Debug.Log("The animation has been stopped");
     }
 
     private void OnAnimationFinished()
     {
-        //Debug.Log("The animation has finished");
 		DestroyMe();
     }
 
     private void OnAnimationLooped()
     {
-        //Debug.Log("The animation has looped back to the start");
     }
 
     private void OnAnimationPingPonged()
     {
-        //Debug.Log("The animation has ping ponged into the other direction");
     }
 
     private void OnPointReached()
     {
-        //Debug.Log("A point was reached");
     }
 
     private void OnPointReachedByNumber(int pointNumber)
     {
-        //Debug.Log("The point " + pointNumber + " was reached");
     }
 }
